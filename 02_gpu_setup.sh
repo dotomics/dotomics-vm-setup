@@ -32,18 +32,24 @@ if lspci | grep -i nvidia > /dev/null; then
   echo "🧪 Verifying NVIDIA installation..."
   nvidia-smi || echo "⚠️ nvidia-smi failed—reboot may be required."
 
-  # Install NVIDIA Nsight Systems profiler
-  echo "📊 Installing NVIDIA Nsight Systems and CLI..."
-  # Add the NVIDIA devtools repository GPG key
-  sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/7fa2af80.pub  :contentReference[oaicite:0]{index=0}
-  # Add the Nsight Systems repository for this Ubuntu release and architecture
-  sudo add-apt-repository \
-    "deb https://developer.download.nvidia.com/devtools/repos/ubuntu$(source /etc/lsb-release; echo "$DISTRIB_RELEASE" | tr -d .)/$(dpkg --print-architecture)/ /"  :contentReference[oaicite:1]{index=1}
-  sudo apt update
-  # Install both the GUI host application and the CLI-only package
-  sudo apt install -y nsight-systems nsight-systems-cli  :contentReference[oaicite:2]{index=2}
+  echo "📊 Installing NVIDIA Nsight Systems (GUI) and CLI tools..."
 
-  echo "✅ NVIDIA Nsight Systems installation complete."
+  # Ensure gnupg is available for key management
+  sudo apt-get update
+  sudo apt-get install -y --no-install-recommends gnupg
+
+  # Add the NVIDIA devtools repository
+  echo "deb http://developer.download.nvidia.com/devtools/repos/ubuntu$(source /etc/lsb-release; echo "$DISTRIB_RELEASE" | tr -d .)/$(dpkg --print-architecture) /" \
+    | sudo tee /etc/apt/sources.list.d/nvidia-devtools.list
+
+  # Fetch and add the GPG key for Ubuntu 24.04
+  curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/7fa2af80.pub \
+    | sudo apt-key add -
+
+  # Update and install both GUI and CLI
+  sudo apt-get update
+  sudo apt-get install -y nsight-systems nsight-systems-cli
+
 else
   echo "ℹ️ No NVIDIA GPU found; skipping GPU setup."
 fi
