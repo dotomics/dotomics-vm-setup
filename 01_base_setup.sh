@@ -28,11 +28,12 @@ cd ~
 echo "📦 Installing ble.sh - Completed !\n"
 
 echo "🌟 Installing Starship prompt..."
-curl -sS https://starship.rs/install.sh | sh -s -- -y
+curl -sS https://starship.rs/install.sh | sudo sh -s -- -y
 echo "🌟 Installing Starship prompt - Completed !\n"
 
 echo "🐍 Installing uv (the Python packaging tool)..."
 curl -Ls https://astral.sh/uv/install.sh | sh
+source $HOME/.local/bin/env
 echo "🐍 Installing uv (the Python packaging tool) - Completed !\n"
 
 echo "🐙 Installing GitHub CLI (gh)..."
