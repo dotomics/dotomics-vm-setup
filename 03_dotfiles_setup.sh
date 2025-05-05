@@ -5,6 +5,9 @@ echo "🗂 Writing .bashrc..."
 cat <<'EOF' > ~/.bashrc
 [[ $- != *i* ]] && return
 
+# Add local bin to PATH
+export PATH="/home/leonard/.local/bin:$PATH"
+
 # Load ble.sh without immediately attaching
 source ~/.local/share/blesh/ble.sh --noattach
 
@@ -62,7 +65,7 @@ ble-face region_insert='fg=cyan,bg=gray'
 # --- Custom prompt face + Starship integration ---
 ble-face git_icon:='fg=magenta,bold'
 
-# Turn off “transient” trimming so old prompts stick around
+# Turn off "transient" trimming so old prompts stick around
 bleopt prompt_ps1_transient=
 bleopt prompt_rps1_transient=
                                                            	
