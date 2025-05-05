@@ -44,4 +44,5 @@ curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | \
   sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null && \
   sudo apt update && sudo apt install -y gh
 echo "🐙 Installing GitHub CLI (gh) - Completed !\n"
+
 echo "✅ Base setup complete."
