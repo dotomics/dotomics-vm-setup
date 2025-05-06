@@ -38,17 +38,20 @@ if lspci | grep -i nvidia > /dev/null; then
   sudo apt-get update
   sudo apt-get install -y --no-install-recommends gnupg
 
-  # Add the NVIDIA devtools repository
-  echo "deb http://developer.download.nvidia.com/devtools/repos/ubuntu$(source /etc/lsb-release; echo "$DISTRIB_RELEASE" | tr -d .)/$(dpkg --print-architecture) /" \
-    | sudo tee /etc/apt/sources.list.d/nvidia-devtools.list
-
-  # Fetch and add the GPG key for Ubuntu 24.04
-  curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/7fa2af80.pub \
-    | sudo apt-key add -
-
-  # Update and install both GUI and CLI
+  # Install CUDA repo keyring
+  wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb
+  sudo dpkg -i cuda-keyring_1.1-1_all.deb
   sudo apt-get update
-  sudo apt-get install -y nsight-systems nsight-systems-cli
+  
+  # Add NVIDIA devtools (Nsight Systems) repo
+  echo "deb http://developer.download.nvidia.com/devtools/repos/ubuntu$(source /etc/lsb-release; \
+       echo \$DISTRIB_RELEASE | tr -d .)/$(dpkg --print-architecture) /" \
+    | sudo tee /etc/apt/sources.list.d/nvidia-devtools.list
+  
+  
+  sudo apt-get update
+  sudo apt-get install -y nsight-systems
+  sudo apt-get install -y nsight-systems-cli
 
 else
   echo "ℹ️ No NVIDIA GPU found; skipping GPU setup."
