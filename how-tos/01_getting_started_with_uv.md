@@ -38,8 +38,6 @@ uv pip install <package-name>
 
 ```
 
-### 
-
 ### Work with jupyter notebooks...
 
 ```shell
@@ -60,3 +58,9 @@ jupyter kernelspec uninstall your_env_name
 ```
 
 To make sure you can work with your jupyter environement, make sure you have the VS code Jupyter extension installed and activated.
+
+### Work with project that has been initialized with `uv`
+
+```shell
+uv pip install -r pyproject.toml
+```
