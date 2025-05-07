@@ -51,33 +51,35 @@ if lspci | grep -i nvidia > /dev/null; then
     echo "Please reboot your system after this script finishes."
   fi
 
-  echo "🎯 Checking Nsight Systems installation..."
-  if command -v nsys &> /dev/null; then
-    echo "✅ Nsight Systems is already installed:"
-    nsys --version
-  else
-    echo "🎯 Installing latest Nsight Systems..."
+  # Previous parts of the script seems to already take care of what's below 👇🏼
+
+  # echo "🎯 Checking Nsight Systems installation..."
+  # if command -v nsys &> /dev/null; then
+  #   echo "✅ Nsight Systems is already installed:"
+  #   nsys --version
+  # else
+  #   echo "🎯 Installing latest Nsight Systems..."
     
-    LATEST_VERSION=$(curl -s "https://developer.download.nvidia.com/devtools/repos/ubuntu${UBUNTU_VERSION}/${ARCH}/Packages" \
-      | awk '/^Package: nsight-systems$/,/^Version:/ { if ($1 == "Version:") print $2 }' \
-      | sort -V \
-      | tail -n 1)
-    PACKAGE_NAME="nsight-systems-${LATEST_VERSION}_amd64.deb"
-    DOWNLOAD_URL="https://developer.download.nvidia.com/devtools/repos/ubuntu${UBUNTU_VERSION}/${ARCH}/${PACKAGE_NAME}"
+  #   LATEST_VERSION=$(curl -s "https://developer.download.nvidia.com/devtools/repos/ubuntu${UBUNTU_VERSION}/${ARCH}/Packages" \
+  #     | awk '/^Package: nsight-systems$/,/^Version:/ { if ($1 == "Version:") print $2 }' \
+  #     | sort -V \
+  #     | tail -n 1)
+  #   PACKAGE_NAME="nsight-systems-${LATEST_VERSION}_amd64.deb"
+  #   DOWNLOAD_URL="https://developer.download.nvidia.com/devtools/repos/ubuntu${UBUNTU_VERSION}/${ARCH}/${PACKAGE_NAME}"
     
-    wget -q "${DOWNLOAD_URL}" -O "${PACKAGE_NAME}"
-    sudo apt install -y "./${PACKAGE_NAME}"
+  #   wget -q "${DOWNLOAD_URL}" -O "${PACKAGE_NAME}"
+  #   sudo apt install -y "./${PACKAGE_NAME}"
     
-    echo "🔍 Verifying Nsight Systems installation..."
+  #   echo "🔍 Verifying Nsight Systems installation..."
     
-    if command -v nsys >/dev/null 2>&1; then
-      echo "✅ Nsight Systems installed successfully:"
-      nsys --version
-    else
-      echo "❌ Nsight Systems installation failed."
-      exit 1
-    fi
-  fi
+  #   if command -v nsys >/dev/null 2>&1; then
+  #     echo "✅ Nsight Systems installed successfully:"
+  #     nsys --version
+  #   else
+  #     echo "❌ Nsight Systems installation failed."
+  #     exit 1
+  #   fi
+  # fi
 
 else
   echo "ℹ️ No NVIDIA GPU found; skipping GPU setup."
