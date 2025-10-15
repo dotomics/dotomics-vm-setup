@@ -6,7 +6,7 @@ cat <<'EOF' > ~/.bashrc
 [[ $- != *i* ]] && return
 
 # Add local bin to PATH
-export PATH="/home/leonard/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 # Load ble.sh without immediately attaching
 source ~/.local/share/blesh/ble.sh --noattach

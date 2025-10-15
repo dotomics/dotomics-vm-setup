@@ -5,7 +5,7 @@ UBUNTU_VERSION=$(lsb_release -rs | tr -d '.')
 ARCH=$(dpkg --print-architecture)
 
 # Add .local/bin to PATH
-export PATH="/home/leonard/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 # Check Ubuntu version
 echo "🔍 Checking Ubuntu version..."
