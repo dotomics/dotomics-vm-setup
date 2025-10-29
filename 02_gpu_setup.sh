@@ -41,6 +41,7 @@ if lspci | grep -i nvidia > /dev/null; then
     echo "🎮 NVIDIA drivers are already installed, skipping driver installation..."
   else
     echo "🎮 Installing NVIDIA drivers..."
+    sudo apt-get update
     sudo apt-get install -y nvidia-open
     sudo apt-get install -y cuda-drivers
   fi
